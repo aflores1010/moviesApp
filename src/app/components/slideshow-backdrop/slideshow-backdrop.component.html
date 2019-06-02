@@ -1,0 +1,15 @@
+<ion-grid>
+    <ion-row>
+      <ion-col>
+        <h3>{{title}}</h3>
+      </ion-col>
+    </ion-row>
+</ion-grid>
+
+<ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let movie of lastMovies">
+      <ion-card (click)="showDetail(movie.id)">
+        <img [src]="movie.backdrop_path | images" alt="">
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
