@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MoviesService } from 'src/app/services/movies.service';
-import { MovieDetail } from 'src/app/interfaces/interfaces';
+import { MovieDetail, CreditsInterface } from 'src/app/interfaces/interfaces';
 import { ViewController } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
 
@@ -13,19 +13,33 @@ export class DetailComponent implements OnInit {
 
   @Input() id;
   movieDetails: MovieDetail;
+  credits: CreditsInterface;
+  overviewLength = 150;
+  slideOption = {
+    slidesPerView: 3.3,
+    freeMode: true,
+    spacebetween: -5
+  }
 
   constructor( private moviesService: MoviesService,
                private modalController: ModalController) { }
 
   ngOnInit() {
-    console.log('id ',this.id);
     this.getDetails();
+    this.getCredits();
   }
 
   getDetails() {
     this.moviesService.getMovieDetails(this.id).subscribe((resp: MovieDetail) => {
       this.movieDetails = resp;
       console.log(this.movieDetails);
+    });
+  }
+
+  getCredits() {
+    this.moviesService.getCredits(this.id).subscribe((resp: CreditsInterface) => {
+      this.credits = resp;
+      console.log('Creditos: ', this.credits);
     });
   }
 

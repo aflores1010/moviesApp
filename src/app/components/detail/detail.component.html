@@ -1,5 +1,108 @@
-<p>
-  detail works!
-</p>
+<ion-content>
 
-<button (click)="close()">Dismiss</button>
+  <ion-label *ngIf="movieDetails" class="title">
+    <h1>{{movieDetails.title}}</h1>
+  </ion-label>
+
+  <img [src]="movieDetails.backdrop_path | images" *ngIf="movieDetails">
+
+  <ion-grid *ngIf="movieDetails">
+    <ion-row>
+
+      <ion-col size="4" class="poster-detail" *ngIf="movieDetails.poster_path" >
+        <ion-card>
+            <img [src]="movieDetails.poster_path | images"
+            class="poster">
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-item>
+          <ion-icon slot="start" name="thumbs-up" color="primary"></ion-icon>
+          <ion-label>Rating</ion-label>
+          <ion-note slot="end" color="primary">
+            {{movieDetails.vote_average}}
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon slot="start" name="contacts" color="primary"></ion-icon>
+            <ion-label>Votes</ion-label>
+            <ion-note slot="end" color="primary">
+              {{movieDetails.vote_count}}
+            </ion-note>
+          </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid fixed *ngIf="movieDetails">
+    <ion-row>
+
+      <ion-col size="12">
+        <ion-label>{{movieDetails.overview | slice: 0: overviewLength}}</ion-label>
+        <ion-label color="primary" (click)="overviewLength=100000" *ngIf="overviewLength === 150 ">...Read more!</ion-label>
+        <ion-label color="primary" (click)="overviewLength=150" *ngIf="overviewLength === 100000 ">
+          <br/>...Read less</ion-label>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+
+        <ion-chip *ngFor="let gen of movieDetails.genres" color="primary">
+          <ion-label> {{gen.name}}</ion-label>
+        </ion-chip>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col >
+          <ion-label>Cast</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-slides [options]="slideOption" *ngIf="credits">
+    <ion-slide *ngFor="let actor of credits.cast">
+
+      <ion-card class="card-actor">
+        <img *ngIf="actor.profile_path" [src]="actor.profile_path | images">
+        <img *ngIf="!actor.profile_path" src="../../../assets/no-avatar.jpg">
+        <ion-label>{{actor.name}}</ion-label>
+        <ion-label *ngIf="actor.character"> as {{actor.character}}</ion-label>
+      </ion-card>
+
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+        <ion-label>Go back</ion-label>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button>
+          <ion-label>Save favorite</ion-label>
+          <ion-icon slot="end" name="star-outline" color="pink"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>

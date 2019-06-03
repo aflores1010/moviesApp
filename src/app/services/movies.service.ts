@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ResponseMovieInterface } from '../interfaces/interfaces';
+import { ResponseMovieInterface, CreditsInterface } from '../interfaces/interfaces';
 import { MovieDetail } from '../interfaces/interfaces';
 
 
@@ -20,6 +20,7 @@ export class MoviesService {
   private executeQuery<T>(query: string,) {
     query = URL + query;
     query += '&language=es&include_image_language=es&api_key=' + apiKey;
+    console.log('Query', query);
     return this.http.get<T>(query);
   }
 
@@ -55,5 +56,9 @@ export class MoviesService {
 
   getMovieDetails(id: string) {
     return this.executeQuery<MovieDetail>('/movie/' + id + '?a=1');
+  }
+
+  getCredits(id:string) {
+    return this.executeQuery<CreditsInterface>('/movie/' + id + '/credits?a=1');
   }
 }
