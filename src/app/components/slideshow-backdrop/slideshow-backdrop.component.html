@@ -7,7 +7,7 @@
 </ion-grid>
 
 <ion-slides pager="true" [options]="slideOpts">
-    <ion-slide *ngFor="let movie of lastMovies">
+    <ion-slide *ngFor="let movie of lastMovies | noImage : 'backdrop'">
       <ion-card (click)="showDetail(movie.id)">
         <img [src]="movie.backdrop_path | images" alt="">
       </ion-card>

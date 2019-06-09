@@ -18,45 +18,9 @@ export class Tab3Page {
 
   async ngOnInit() {
    this.movies = await this.localDataService.getFromStorage();
-   console.log('movies', this.movies);
    this.genres = await this.moviesService.loadGenres();
-   console.log('geneross', this.genres);
    this.filterMovies();
   }
-
-  // filterMovies(genre: GenreInterface) {
-  //   const id = genre.id;
-  //   const name = genre.name;
-  //   console.log('id: ', id, 'name:', name);
-
-  //   this.movies.forEach(movieFilter => movieFilter.genres.forEach( (eachGenre) => {
-  //    console.log('movieFilter', movieFilter.title);
-  //    // console.log('eachGenre', eachGenre);
-  //     if(eachGenre.id === id) {
-  //       // console.log('SI CUMPLE', movieFilter);
-        
-  //     };
-
-  //   }));
-  //   return this.movies;
-  // }
-
-  //   filterMovies() {
-  //   console.log('Inside filter');
-  //   this.genres.forEach(eachGenre => {
-  //     console.log('Genero', eachGenre.name);
-  //          this.movies.forEach(eachMovie => {
-  //           console.log('Pelicula', eachMovie.title);
-  //             eachMovie.genres.forEach(actualMovieGenre => {
-  //               if(eachGenre.id === actualMovieGenre.id) {
-
-  //                   return actualMovieGenre;
-  //                 }
-  //            })
-  //     })
-  //   });
-
-  // }
 
   filterMovies() {
     this.genderMovie = [];

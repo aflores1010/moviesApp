@@ -8,8 +8,8 @@
 </ion-grid>
 
 <ion-slides pager="true" [options]="slideOpts" >
-    <ion-slide *ngFor="let movie of lastMovies" class="poster-slide">
-      <ion-card (click)="showDetail(movie.id)">
+    <ion-slide *ngFor="let movie of lastMovies | noImage : 'poster'" class="poster-slide">
+      <ion-card mode="md" (click)="showDetail(movie.id)">
         <img [src]="movie.poster_path | images" alt="">
       </ion-card>
     </ion-slide>

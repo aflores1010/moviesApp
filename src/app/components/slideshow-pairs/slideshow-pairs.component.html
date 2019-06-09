@@ -12,7 +12,7 @@
       <ion-row>
 
         <ion-col size="12" *ngFor="let pair of movie" >
-            <ion-card (click)="showDetail(pair.id)">
+            <ion-card mode="md" (click)="showDetail(pair.id)">
               <img [src]="pair.backdrop_path | images" alt="">
             </ion-card>
         </ion-col>
