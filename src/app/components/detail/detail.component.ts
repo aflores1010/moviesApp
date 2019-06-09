@@ -3,6 +3,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 import { MovieDetail, CreditsInterface } from 'src/app/interfaces/interfaces';
 import { ViewController } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
+import { LocalDataService } from 'src/app/services/local-data.service';
 
 @Component({
   selector: 'app-detail',
@@ -20,11 +21,14 @@ export class DetailComponent implements OnInit {
     freeMode: true,
     spacebetween: -5
   }
+  movieExist = false;
 
   constructor( private moviesService: MoviesService,
+               private localDataService: LocalDataService,
                private modalController: ModalController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.movieExist = await this.localDataService.verifyMovie(this.id);
     this.getDetails();
     this.getCredits();
   }
@@ -45,6 +49,11 @@ export class DetailComponent implements OnInit {
 
   close() {
     this.modalController.dismiss();
+  }
+
+  saveFavorite() {
+    this.movieExist = !this.movieExist;
+    this.localDataService.saveMovie(this.movieDetails);
   }
 
 }

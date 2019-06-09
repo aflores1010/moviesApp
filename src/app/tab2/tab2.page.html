@@ -1,9 +1,61 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Search
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-toolbar>
+  <ion-searchbar placeholder="Search Movie" animated debounce="700" [value]="textSearch" (ionChange)="search( $event )">
+
+  </ion-searchbar>
+</ion-toolbar>
+
+<div text-center *ngIf="isLoading">
+    <ion-spinner name="crescent" ></ion-spinner>
+</div>
+
+<ion-content>
+  <ion-list *ngIf="movies.length ===0">
+    <ion-list-header>
+      <ion-label>Ideas</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let idea of ideas" (click)="selectIdea(idea)">
+      <ion-label color="primary">{{idea}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="movies.length > 0">
+    
+      <ion-list-header>
+        <ion-label>Results</ion-label>
+      </ion-list-header>
+
+      <ion-grid>
+        <ion-row>
+
+          <ion-col size="6" *ngFor="let movie of movies" >
+
+            <ion-card (click)="showDetail(movie.id)">
+
+              <img [src]="movie.poster_path | images" alt="">
+
+              <ion-card-header no-padding>
+                <ion-card-subtitle class="movie-info" text-center>{{movie.title}}</ion-card-subtitle>
+              </ion-card-header>
+
+              <ion-card-content no-padding>
+                <h2 class="movie-info" text-center>{{movie.release_date}}</h2>
+              </ion-card-content>
+
+            </ion-card>
+
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+  </ion-list>
+
+</ion-content>

@@ -12,9 +12,15 @@ export class SlideshowPosterComponent implements OnInit {
 
   @Input() title: string;
   @Input('lastMovies') lastMovies: MovieInterface[];
+  slideOpts = {
+    slidesPerView: 1.3,
+    freeMode: true,
+    spaceBeteen: -10
+  }
 
   constructor( private modalController: ModalController) { }
-  ngOnInit() {}
+  async ngOnInit() {
+  }
 
   async showDetail(id: string) {
 

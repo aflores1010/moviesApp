@@ -1,9 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div  *ngFor="let movie of genderMovie">
 
-<ion-content></ion-content>
+      <app-slideshow-poster *ngIf="movie.movies.length > 0" 
+                            [lastMovies]="movie.movies" 
+                            [title]="movie.name">
+      </app-slideshow-poster>
+
+  </div>
+
+</ion-content>

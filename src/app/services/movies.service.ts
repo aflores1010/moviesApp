@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { ResponseMovieInterface, CreditsInterface } from '../interfaces/interfaces';
+import { ResponseMovieInterface, CreditsInterface, SearchResponse, GenreResponse, GenreInterface } from '../interfaces/interfaces';
 import { MovieDetail } from '../interfaces/interfaces';
 
 
@@ -14,6 +14,7 @@ const apiKey = environment.apiKey;
 export class MoviesService {
  
   private popularPage = 0;
+  private genres: GenreInterface[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -60,5 +61,20 @@ export class MoviesService {
 
   getCredits(id:string) {
     return this.executeQuery<CreditsInterface>('/movie/' + id + '/credits?a=1');
+  }
+
+  search(text: string) {
+    return this.executeQuery<SearchResponse>('/search/movie?query=' + text);
+  }
+
+  loadGenres(): Promise<GenreInterface[]> {
+
+    return new Promise( resolve => {
+      return this.executeQuery<GenreResponse>('/genre/movie/list?a=1').subscribe(resp => {
+        this.genres = resp.genres;
+        resolve(this.genres);
+      });
+    });
+
   }
 }
